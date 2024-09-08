@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todo</title>
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<li class="list-group-item">
+    <div class="row">
+        <div class="col-sm">
+            <input type="checkbox" class="form-control" th:checked="${item.isCompleted()}" hx-trigger="click" hx-target="closest li"
+                   hx-swap="outerHTML" th:hx-post="|/todos/${item.getId()}/complete|">
+        </div>
+        <div class="col-sm">
+            <span th:text="${item.getDescription()}" th:classappend="${item.isCompleted() ? 'complete' : ''}"></span>
+        </div>
+        <div class="col-sm">
+            <button type="button" class="btn btn-danger" th:hx-delete="|/todos/${item.getId()}/delete|" hx-swap="outerHTML" hx-target="closest li">
+                Delete
+            </button>
+        </div>
+    </div>
+
+</li>
+</body>
+</html>
